@@ -13,7 +13,9 @@ import Types
 
 fakeTranslations : Translations
 fakeTranslations =
-    Dict.fromList [ ( "who.did.dis??????", "😂😂😂" ), ( "finna", "woke" ) ]
+    { dictionary = Dict.fromList [ ( "who.did.dis??????", "😂😂😂" ), ( "finna", "woke" ) ]
+    , isLoading = False
+    }
 
 
 translate : Test

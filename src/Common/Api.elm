@@ -1,12 +1,12 @@
 module Common.Api exposing (..)
 
 import Common.Language exposing (Language)
-import Common.Translations as Translations exposing (Translations)
+import Dict exposing (Dict)
 import Http
 import Json.Decode
 
 
-getTranslations : Language -> Http.Request Translations
+getTranslations : Language -> Http.Request (Dict String String)
 getTranslations language =
     let
         url =

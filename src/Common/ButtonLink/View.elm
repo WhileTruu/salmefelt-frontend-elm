@@ -7,5 +7,5 @@ import Html.Attributes exposing (alt, attribute, class, classList, disabled, hre
 root : List ( String, Bool ) -> String -> List (Html msg) -> Html msg
 root classNames url children =
     a
-        [ class "button-link", classList classNames, href url ]
+        [ class "button interactive", classList classNames, href url ]
         children

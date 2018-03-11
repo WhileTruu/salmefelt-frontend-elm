@@ -8,8 +8,15 @@ noTranslation =
     "😢💩 Translate me."
 
 
+loading : String
+loading =
+    "Loading..."
+
+
 type alias Translations =
-    Dict String String
+    { dictionary : Dict String String
+    , isLoading : Bool
+    }
 
 
 type alias TranslateKey =
@@ -18,4 +25,10 @@ type alias TranslateKey =
 
 translate : Translations -> String -> String
 translate translations =
-    flip Dict.get translations >> Maybe.withDefault noTranslation
+    flip Dict.get translations.dictionary
+        >> Maybe.withDefault
+            (if translations.isLoading then
+                loading
+             else
+                noTranslation
+            )

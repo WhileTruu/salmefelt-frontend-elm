@@ -41,17 +41,20 @@ externalLinks translateKey =
 contactInformation : TranslateKey -> Html Msg
 contactInformation translateKey =
     div [ class "contact-information" ]
-        [ text <| translateKey "contact.name"
+        [ div [ class "avatar" ] [ img [ alt "avatar", src "/assets/images/avatar.jpg" ] [] ]
         , div []
-            [ text <| translateKey "phone" ++ ": "
-            , a [ class "link", href <| "tel:" ++ translateKey "phonenumber" ]
-                [ text <| translateKey "phonenumber" ]
-            ]
-        , div []
-            [ text <| translateKey "email" ++ ": "
-            , a
-                [ class "link", href <| "mailto:" ++ translateKey "email.address" ]
-                [ text <| translateKey "email.address" ]
+            [ text <| translateKey "contact.name"
+            , div []
+                [ text <| translateKey "phone" ++ ": "
+                , a [ class "link", href <| "tel:" ++ translateKey "phonenumber" ]
+                    [ text <| translateKey "phonenumber" ]
+                ]
+            , div []
+                [ text <| translateKey "email" ++ ": "
+                , a
+                    [ class "link", href <| "mailto:" ++ translateKey "email.address" ]
+                    [ text <| translateKey "email.address" ]
+                ]
             ]
         ]
 

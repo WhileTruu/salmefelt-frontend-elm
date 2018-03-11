@@ -9,7 +9,7 @@ import Json.Decode
 
 type Msg
     = ToggleLanguage
-    | GetTranslations (Result Http.Error Translations)
+    | GetTranslations (Result Http.Error (Dict String String))
     | NoOp
 
 
@@ -20,5 +20,5 @@ type alias Flags =
 
 type alias Model =
     { language : Language
-    , translations : Dict String String
+    , translations : Translations
     }

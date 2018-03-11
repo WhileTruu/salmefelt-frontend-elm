@@ -23,6 +23,7 @@
 svg {
   overflow: visible;
   max-width: 100%;
+  filter: drop-shadow(var(--text-shadow-1)) drop-shadow(var(--text-shadow-2));
 }
 
 .logo-section {
@@ -41,7 +42,7 @@ svg {
   margin-right: var(--spacing-small);
 }
 
-.external-links .button-link:not(:last-child) {
+.external-links .button:not(:last-child) {
   margin-right: var(--spacing-small);
 }
 
@@ -51,5 +52,17 @@ svg {
 }
 
 .contact-information {
+  display: flex;
   padding-bottom: var(--spacing-small);
+}
+
+.contact-information .avatar {
+  padding-right: var(--spacing-small);
+}
+
+.contact-information .avatar img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 50%;
+  box-shadow: var(--text-shadow);
 }

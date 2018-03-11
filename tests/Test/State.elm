@@ -14,7 +14,9 @@ import Types
 
 fakeTranslations : Translations
 fakeTranslations =
-    Dict.fromList [ ( "bleep", "bloop" ), ( "meep", "moop" ) ]
+    { dictionary = Dict.fromList [ ( "bleep", "bloop" ), ( "meep", "moop" ) ]
+    , isLoading = False
+    }
 
 
 init : Test
@@ -29,6 +31,8 @@ init =
             [ test "language defaults to english" <|
                 \_ ->
                     result |> Tuple.first |> .language |> Expect.equal Language.EN
+            , test "translations are loading" <|
+                \_ -> result |> Tuple.first |> .translations |> .isLoading |> Expect.equal True
             ]
         , describe "when initializing with language from localstorage" <|
             let
@@ -39,6 +43,8 @@ init =
             [ test "language is decoded" <|
                 \_ ->
                     result |> Tuple.first |> .language |> Expect.equal Language.ET
+            , test "translations are loading" <|
+                \_ -> result |> Tuple.first |> .translations |> .isLoading |> Expect.equal True
             ]
         ]
 
@@ -53,33 +59,50 @@ update =
                     State.update Types.ToggleLanguage (Tuple.first <| State.init { language = Json.Encode.string "EN" })
             in
             [ test "langugage is changed" <|
-                \_ ->
-                    result |> Tuple.first |> .language |> Expect.equal Language.ET
+                \_ -> result |> Tuple.first |> .language |> Expect.equal Language.ET
             , test "the update results in another command (hopefully requesting new translations)" <|
                 \_ ->
                     result
                         |> Tuple.second
                         |> Expect.notEqual Cmd.none
+            , test "translations are loading" <|
+                \_ -> result |> Tuple.first |> .translations |> .isLoading |> Expect.equal True
             ]
-        , describe "when getting translations is a success"
+        , describe "when getting translations is a success" <|
+            let
+                result : ( Types.Model, Cmd Types.Msg )
+                result =
+                    State.update
+                        (Types.GetTranslations (Result.Ok fakeTranslations.dictionary))
+                        (Tuple.first <| State.init { language = Json.Encode.string "EN" })
+            in
             [ test "translations are added to the state" <|
                 \_ ->
-                    State.update
-                        (Types.GetTranslations (Result.Ok fakeTranslations))
-                        (Tuple.first <| State.init { language = Json.Encode.string "EN" })
+                    result
                         |> Tuple.first
                         |> .translations
-                        |> Expect.equal fakeTranslations
+                        |> .dictionary
+                        |> Expect.equal fakeTranslations.dictionary
+            , test "translations are not loading" <|
+                \_ -> result |> Tuple.first |> .translations |> .isLoading |> Expect.equal False
             ]
-        , describe "when getting translations is a failure"
-            [ test "nothing changes" <|
-                \_ ->
+        , describe "when getting translations is a failure" <|
+            let
+                result : ( Types.Model, Cmd Types.Msg )
+                result =
                     State.update
                         (Types.GetTranslations (Result.Err Http.NetworkError))
                         (Tuple.first <| State.init { language = Json.Encode.string "EN" })
+            in
+            [ test "nothing changes" <|
+                \_ ->
+                    result
                         |> Tuple.first
                         |> .translations
+                        |> .dictionary
                         |> Expect.equal Dict.empty
+            , test "translations are not loading" <|
+                \_ -> result |> Tuple.first |> .translations |> .isLoading |> Expect.equal False
             ]
         , describe "when called with NoOp"
             [ test "returns current state, changing nothing" <|

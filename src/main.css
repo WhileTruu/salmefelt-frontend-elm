@@ -8,6 +8,23 @@
   --button-height: 3rem;
   --button-border-radius: 0.25rem;
   --color-link-light: #cce8ff;
+  --button-border: none;
+  --focus-shadow: 0 0 0 2px rgba(204, 232, 255, 0.5);
+  --hover-shadow: 0 10px 18px rgba(0, 0, 0, 0.11), 0 4px 5px rgba(0, 0, 0, 0.08);
+  --hover-tranform: translateY(-2%);
+  --active-transform: translateY(2%);
+
+  --text-shadow-1: 0 0 2px rgba(0, 0, 0, 0.11);
+  --text-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --text-shadow: var(--text-shadow-1), var(--text-shadow-2);
+
+  --active-shadow-1: 0 2px 3px rgba(0, 0, 0, 0.11);
+  --active-shadow-2: 0 1px 1px rgba(0, 0, 0, 0.08);
+  --active-shadow: var(--active-shadow-1), var(--active-shadow-2);
+
+  --default-shadow-1: 0 4px 6px rgba(0, 0, 0, 0.11);
+  --default-shadow-2: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --default-shadow: var(--default-shadow-1), var(--default-shadow-2);
 }
 
 html,
@@ -22,6 +39,9 @@ body {
   margin: 0;
   color: #293c4b;
   font-size: 1rem;
+  line-height: 1.25rem;
+  text-shadow: var(--text-shadow);
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
@@ -61,4 +81,35 @@ body {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+}
+
+.button {
+  display: inline-block;
+  user-select: none;
+  height: var(--button-height);
+  border-radius: var(--button-border-radius);
+  border: var(--button-border);
+  padding: 0.5rem 1rem;
+  font-size: 1.125rem;
+}
+
+.interactive {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: var(--default-shadow);
+}
+
+.interactive:focus {
+  outline: 0;
+  box-shadow: var(--focus-shadow);
+}
+
+.interactive:hover {
+  box-shadow: var(--hover-shadow);
+  transform: var(--hover-tranform);
+}
+
+.interactive:active {
+  transform: var(--active-transform);
+  box-shadow: var(--active-shadow);
 }

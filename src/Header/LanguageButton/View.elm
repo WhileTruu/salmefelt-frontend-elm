@@ -13,7 +13,7 @@ root buttonLanguage selectedLanguage msg =
             buttonLanguage |> toString |> String.toLower
     in
     button
-        [ class "language-button"
+        [ class "language-button interactive"
         , onClick msg
         , disabled (buttonLanguage == selectedLanguage)
         ]

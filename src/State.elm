@@ -17,7 +17,10 @@ init flags =
                 |> Result.withDefault Language.EN
     in
     ( { language = language
-      , translations = Dict.empty
+      , translations =
+            { isLoading = True
+            , dictionary = Dict.empty
+            }
       }
     , Http.send GetTranslations <| Api.getTranslations language
     )
@@ -35,11 +38,19 @@ update msg model =
             , Http.send GetTranslations <| Api.getTranslations newLanguage
             )
 
-        GetTranslations (Ok translations) ->
-            ( { model | translations = translations }, Cmd.none )
+        GetTranslations (Ok dictionary) ->
+            ( { model
+                | translations = { dictionary = dictionary, isLoading = False }
+              }
+            , Cmd.none
+            )
 
         GetTranslations (Err _) ->
-            ( model, Cmd.none )
+            ( { model
+                | translations = { dictionary = model.translations.dictionary, isLoading = False }
+              }
+            , Cmd.none
+            )
 
         NoOp ->
             ( model, Cmd.none )
