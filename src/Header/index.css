@@ -1,0 +1,55 @@
+.header {
+  padding-top: var(--spacing-large);
+  padding-bottom: var(--spacing-large);
+  color: white;
+  position: relative;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 200%;
+  z-index: -1;
+  background-position: bottom;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background: radial-gradient(circle at 47% 9%, #3e825f, #1a4172);
+  transform: translate3d(0, 0, 0);
+}
+
+svg {
+  overflow: visible;
+  max-width: 100%;
+}
+
+.logo-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+}
+
+.language-buttons {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.language-buttons .language-button:not(:last-child) {
+  margin-right: var(--spacing-small);
+}
+
+.external-links .button-link:not(:last-child) {
+  margin-right: var(--spacing-small);
+}
+
+.link {
+  color: var(--color-link-light);
+  text-decoration: none;
+}
+
+.contact-information {
+  padding-bottom: var(--spacing-small);
+}
