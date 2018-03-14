@@ -1,4 +1,4 @@
-module Test.State exposing (..)
+module StateTest exposing (..)
 
 import Common.Api as Api
 import Common.Language as Language exposing (Language)

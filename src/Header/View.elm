@@ -35,6 +35,10 @@ externalLinks translateKey =
             [ ( "etsy", True ) ]
             (translateKey "links.etsy")
             [ img [ alt "links.etsy", src "/assets/images/etsy.svg" ] [] ]
+        , ButtonLink.root
+            [ ( "instagram", True ) ]
+            (translateKey "links.instagram")
+            [ img [ alt "link.instagram", src "/assets/images/instagram.svg" ] [] ]
         ]
 
 

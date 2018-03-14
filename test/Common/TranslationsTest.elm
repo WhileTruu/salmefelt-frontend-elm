@@ -1,4 +1,4 @@
-module Test.Common.Translations exposing (..)
+module TranslationsTest exposing (..)
 
 import Common.Translations as Translations exposing (Translations)
 import Dict exposing (Dict)

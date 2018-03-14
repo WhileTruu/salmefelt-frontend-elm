@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800');
+
 @import './Common/ButtonLink/index.css';
 @import './Header/LanguageButton/index.css';
 @import './Header/index.css';
@@ -6,7 +8,7 @@
   --spacing-small: 0.75rem;
   --spacing-large: 2.25rem;
   --button-height: 3rem;
-  --button-border-radius: 0.25rem;
+  --button-border-radius: 0.5rem;
   --color-link-light: #cce8ff;
   --button-border: none;
   --focus-shadow: 0 0 0 2px rgba(204, 232, 255, 0.5);
@@ -35,7 +37,7 @@ body {
 }
 
 body {
-  font-family: 'Source Sans Pro', 'Trebuchet MS', 'Lucida Grande', 'Bitstream Vera Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   margin: 0;
   color: #293c4b;
   font-size: 1rem;

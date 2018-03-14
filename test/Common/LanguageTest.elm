@@ -1,4 +1,4 @@
-module Test.Common.Language exposing (..)
+module LanguageTest exposing (..)
 
 import Common.Language as Language exposing (Language)
 import Dict exposing (Dict)
