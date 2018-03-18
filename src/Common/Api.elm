@@ -18,4 +18,4 @@ getTranslations language =
 
 getProducts : Http.Request (List Types.Product)
 getProducts =
-    Http.get "api/products/" (Json.Decode.list Types.decoder)
+    Http.get "api/v1/products/" (Json.Decode.list Types.decoder)

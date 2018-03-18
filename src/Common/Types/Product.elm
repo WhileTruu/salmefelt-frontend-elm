@@ -24,7 +24,9 @@ type alias Product =
 
 decoder : Decoder Product
 decoder =
-    Json.Decode.map Product (field "id" int)
+    Product
+        |> Json.Decode.succeed
+        |> Json.Decode.andThen (flip Json.Decode.map (field "id" int))
         |> Json.Decode.andThen (flip Json.Decode.map (field "name_en" string))
         |> Json.Decode.andThen (flip Json.Decode.map (field "name_et" string))
         |> Json.Decode.andThen (flip Json.Decode.map (field "description_en" string))
