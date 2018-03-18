@@ -21,8 +21,12 @@ init flags =
             { isLoading = True
             , dictionary = Dict.empty
             }
+      , products = []
       }
-    , Http.send GetTranslations <| Api.getTranslations language
+    , Cmd.batch
+        [ Http.send GetTranslations <| Api.getTranslations language
+        , Http.send GetProducts Api.getProducts
+        ]
     )
 
 
@@ -51,6 +55,20 @@ update msg model =
               }
             , Cmd.none
             )
+
+        GetProducts (Ok products) ->
+            ( { model
+                | products = products
+              }
+            , Cmd.none
+            )
+
+        GetProducts (Err string) ->
+            let
+                _ =
+                    Debug.log "GetProducs error" string
+            in
+            ( model, Cmd.none )
 
         NoOp ->
             ( model, Cmd.none )

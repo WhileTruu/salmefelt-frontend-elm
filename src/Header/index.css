@@ -47,11 +47,6 @@ svg {
   margin-right: var(--spacing-small);
 }
 
-.link {
-  color: var(--color-link-light);
-  text-decoration: none;
-}
-
 .contact-information {
   display: flex;
   padding-bottom: var(--spacing-small);

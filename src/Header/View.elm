@@ -7,7 +7,6 @@ import Common.Translations as Translations exposing (TranslateKey)
 import Header.LanguageButton.View as LanguageButton
 import Html exposing (Html, a, button, div, h3, img, span, text)
 import Html.Attributes exposing (alt, attribute, class, disabled, href, src)
-import Html.Events exposing (onClick)
 import Types exposing (Msg(..))
 
 
@@ -50,13 +49,13 @@ contactInformation translateKey =
             [ text <| translateKey "contact.name"
             , div []
                 [ text <| translateKey "phone" ++ ": "
-                , a [ class "link", href <| "tel:" ++ translateKey "phonenumber" ]
+                , a [ class "link link--light", href <| "tel:" ++ translateKey "phonenumber" ]
                     [ text <| translateKey "phonenumber" ]
                 ]
             , div []
                 [ text <| translateKey "email" ++ ": "
                 , a
-                    [ class "link", href <| "mailto:" ++ translateKey "email.address" ]
+                    [ class "link link--light", href <| "mailto:" ++ translateKey "email.address" ]
                     [ text <| translateKey "email.address" ]
                 ]
             ]
