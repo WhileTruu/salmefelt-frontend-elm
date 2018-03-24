@@ -49,7 +49,7 @@ svg {
 
 .contact-information {
   display: flex;
-  padding-bottom: var(--spacing-small);
+  padding-bottom: var(--spacing-medium);
   align-items: center;
 }
 

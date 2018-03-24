@@ -23,7 +23,10 @@ root translateKey products =
             (products
                 |> List.foldl
                     (\product accumulator ->
-                        accumulator ++ List.map (.url >> ProductButton.root product.nameEN) product.images
+                        if product.visible then
+                            accumulator ++ List.map (.path >> (++) "/" >> ProductButton.root product.nameEN) product.images
+                        else
+                            accumulator
                     )
                     []
             )

@@ -1,14 +1,11 @@
 module Common.Types.Product exposing (..)
 
-import Json.Decode exposing (Decoder, decodeString, decodeValue, field, int, list, string)
+import Json.Decode exposing (Decoder, bool, decodeString, decodeValue, field, int, list, string)
 
 
 type alias ProductImage =
     { id : Int
-    , productId : Int
-    , url : String
-    , dateCreated : String
-    , dateModified : String
+    , path : String
     }
 
 
@@ -19,6 +16,7 @@ type alias Product =
     , descriptionEN : String
     , descriptionET : String
     , images : List ProductImage
+    , visible : Bool
     }
 
 
@@ -27,11 +25,12 @@ decoder =
     Product
         |> Json.Decode.succeed
         |> Json.Decode.andThen (flip Json.Decode.map (field "id" int))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "name_en" string))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "name_et" string))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "description_en" string))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "description_et" string))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "productimages" (list productImageDecoder)))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "nameEn" string))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "nameEt" string))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "descriptionEn" string))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "descriptionEt" string))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "images" (list productImageDecoder)))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "visible" bool))
 
 
 productImageDecoder : Decoder ProductImage
@@ -39,7 +38,4 @@ productImageDecoder =
     ProductImage
         |> Json.Decode.succeed
         |> Json.Decode.andThen (flip Json.Decode.map (field "id" int))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "productId" int))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "image" string))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "date_created" string))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "date_modified" string))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "path" string))
