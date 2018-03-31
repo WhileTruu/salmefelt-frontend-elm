@@ -1,34 +1,16 @@
-module Common.Translations exposing (TranslateKey, Translations, noTranslation, translate)
+module Common.Translations exposing (getTranslationsForLanguage)
 
-import Dict exposing (Dict)
-
-
-noTranslation : String
-noTranslation =
-    "😢💩 Translate me."
+import Common.Language as Language exposing (Language)
+import Common.Translations.EN as English
+import Common.Translations.ET as Estonian
+import Common.Types.Translations exposing (Translations)
 
 
-loading : String
-loading =
-    "Loading..."
+getTranslationsForLanguage : Language -> Translations
+getTranslationsForLanguage language =
+    case language of
+        Language.ET ->
+            Estonian.translations
 
-
-type alias Translations =
-    { dictionary : Dict String String
-    , isLoading : Bool
-    }
-
-
-type alias TranslateKey =
-    String -> String
-
-
-translate : Translations -> String -> String
-translate translations =
-    flip Dict.get translations.dictionary
-        >> Maybe.withDefault
-            (if translations.isLoading then
-                loading
-             else
-                noTranslation
-            )
+        Language.EN ->
+            English.translations

@@ -1,7 +1,7 @@
 module Products.View exposing (root)
 
-import Common.Translations as Translations exposing (TranslateKey)
 import Common.Types.Product exposing (Product)
+import Common.Types.Translations exposing (Translations)
 import Html exposing (Html, div)
 import Html.Attributes exposing (class, property)
 import Json.Encode
@@ -9,16 +9,16 @@ import Products.ProductButton.View as ProductButton
 import Types exposing (Msg)
 
 
-intro : TranslateKey -> Html Msg
-intro translateKey =
-    div [ class "intro", property "innerHTML" (Json.Encode.string <| translateKey "body.text") ] []
+intro : Translations -> Html Msg
+intro translations =
+    div [ class "intro", property "innerHTML" (Json.Encode.string <| translations.body_text) ] []
 
 
-root : TranslateKey -> List Product -> Html Msg
-root translateKey products =
+root : Translations -> List Product -> Html Msg
+root translations products =
     div
         [ class "container products" ]
-        [ intro translateKey
+        [ intro translations
         , div [ class "grid" ]
             (products
                 |> List.foldl

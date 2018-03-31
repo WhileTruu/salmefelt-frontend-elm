@@ -274,7 +274,7 @@ module.exports = {
       minify: true,
       // For unknown URLs, fallback to the index page
       navigateFallback: publicUrl + '/index.html',
-      // Ignores URLs starting from /__ (useful for Firebase):
+      // Ignores URLs starting from /admin and /api and /static/admin and /images (useful for Firebase):
       // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
       navigateFallbackWhitelist: [/^(?!\/(admin|api|static\/admin|images))\/.*/],
       // Don't precache sourcemaps (they're large) and build asset manifest:

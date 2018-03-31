@@ -1,6 +1,7 @@
 module View exposing (root)
 
-import Common.Translations as Translations exposing (TranslateKey)
+import Common.Translations as Translations
+import Common.Types.Translations exposing (Translations)
 import Header.View
 import Html exposing (Html, button, div, h1, img, text)
 import Html.Attributes exposing (class)
@@ -11,11 +12,11 @@ import Types exposing (..)
 root : Model -> Html Msg
 root model =
     let
-        translateKey : TranslateKey
-        translateKey =
-            Translations.translate model.translations
+        translations : Translations
+        translations =
+            Translations.getTranslationsForLanguage model.language
     in
     div [ class "app" ]
-        [ Header.View.root translateKey model.language
-        , Products.View.root translateKey model.products
+        [ Header.View.root translations model.language
+        , Products.View.root translations model.products
         ]

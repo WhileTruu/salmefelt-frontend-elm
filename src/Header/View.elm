@@ -3,7 +3,7 @@ module Header.View exposing (..)
 import Common.ButtonLink.View as ButtonLink
 import Common.Language as Language exposing (Language)
 import Common.Logo
-import Common.Translations as Translations exposing (TranslateKey)
+import Common.Types.Translations exposing (Translations)
 import Header.LanguageButton.View as LanguageButton
 import Html exposing (Html, a, button, div, h3, img, span, text)
 import Html.Attributes exposing (alt, attribute, class, disabled, href, src)
@@ -23,52 +23,52 @@ languageButtons language =
         ]
 
 
-externalLinks : TranslateKey -> Html Msg
-externalLinks translateKey =
+externalLinks : Translations -> Html Msg
+externalLinks translations =
     div [ class "external-links" ]
         [ ButtonLink.root
             [ ( "facebook", True ) ]
-            (translateKey "links.facebook")
+            translations.links_facebook
             [ img [ alt "links.facebook", src "/assets/images/facebook.svg" ] [] ]
         , ButtonLink.root
             [ ( "etsy", True ) ]
-            (translateKey "links.etsy")
+            translations.links_etsy
             [ img [ alt "links.etsy", src "/assets/images/etsy.svg" ] [] ]
         , ButtonLink.root
             [ ( "instagram", True ) ]
-            (translateKey "links.instagram")
+            translations.links_instagram
             [ img [ alt "link.instagram", src "/assets/images/instagram.svg" ] [] ]
         ]
 
 
-contactInformation : TranslateKey -> Html Msg
-contactInformation translateKey =
+contactInformation : Translations -> Html Msg
+contactInformation translations =
     div [ class "contact-information" ]
         [ div [ class "avatar" ] [ img [ alt "avatar", src "/assets/images/avatar.jpg" ] [] ]
         , div []
-            [ text <| translateKey "contact.name"
+            [ text translations.contact_name
             , div []
-                [ text <| translateKey "phone" ++ ": "
-                , a [ class "link link--light", href <| "tel:" ++ translateKey "phonenumber" ]
-                    [ text <| translateKey "phonenumber" ]
+                [ text <| translations.phone ++ ": "
+                , a [ class "link link--light", href <| "tel:" ++ translations.phonenumber ]
+                    [ text translations.phonenumber ]
                 ]
             , div []
-                [ text <| translateKey "email" ++ ": "
+                [ text <| translations.email ++ ": "
                 , a
-                    [ class "link link--light", href <| "mailto:" ++ translateKey "email.address" ]
-                    [ text <| translateKey "email.address" ]
+                    [ class "link link--light", href <| "mailto:" ++ translations.email_address ]
+                    [ text translations.email_address ]
                 ]
             ]
         ]
 
 
-root : TranslateKey -> Language -> Html Msg
-root translateKey language =
+root : Translations -> Language -> Html Msg
+root translations language =
     div [ class "header" ]
         [ div [ class "container" ]
             [ div [ class "logo-section" ] [ logo, languageButtons language ]
-            , h3 [] [ text <| translateKey "header.slogan" ]
-            , contactInformation translateKey
-            , externalLinks translateKey
+            , h3 [] [ text translations.header_slogan ]
+            , contactInformation translations
+            , externalLinks translations
             ]
         ]
