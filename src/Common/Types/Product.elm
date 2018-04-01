@@ -5,7 +5,9 @@ import Json.Decode exposing (Decoder, bool, decodeString, decodeValue, field, in
 
 type alias ProductImage =
     { id : Int
-    , path : String
+    , fullPath : String
+    , optimized : String
+    , thumbnail : String
     }
 
 
@@ -38,4 +40,6 @@ productImageDecoder =
     ProductImage
         |> Json.Decode.succeed
         |> Json.Decode.andThen (flip Json.Decode.map (field "id" int))
-        |> Json.Decode.andThen (flip Json.Decode.map (field "path" string))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "fullSize" string))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "optimized" string))
+        |> Json.Decode.andThen (flip Json.Decode.map (field "thumbnail" string))

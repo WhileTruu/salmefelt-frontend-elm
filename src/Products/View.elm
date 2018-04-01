@@ -24,7 +24,7 @@ root translations products =
                 |> List.foldl
                     (\product accumulator ->
                         if product.visible then
-                            accumulator ++ List.map (.path >> (++) "/" >> ProductButton.root product.nameEN) product.images
+                            accumulator ++ List.map (.thumbnail >> (++) "/" >> ProductButton.root product.nameEN) product.images
                         else
                             accumulator
                     )
