@@ -4,15 +4,18 @@ import Common.ButtonLink.View as ButtonLink
 import Common.Language as Language exposing (Language)
 import Common.Logo
 import Common.Types.Translations exposing (Translations)
+import Common.Utilities exposing (onClickWithPreventDefault)
 import Header.LanguageButton.View as LanguageButton
 import Html exposing (Html, a, button, div, h3, img, span, text)
-import Html.Attributes exposing (alt, attribute, class, disabled, href, src)
-import Types exposing (Msg(..))
+import Html.Attributes exposing (alt, attribute, class, classList, disabled, href, src)
+import Types exposing (Msg(..), Route)
 
 
-logo : Html Msg
-logo =
-    div [] [ Common.Logo.image ]
+logo : Bool -> Html Msg
+logo isCompact =
+    div
+        (ifThenElse isCompact [ onClickWithPreventDefault <| ChangeLocation "/" ] [])
+        [ Common.Logo.image ]
 
 
 languageButtons : Language -> Html Msg
@@ -62,13 +65,30 @@ contactInformation translations =
         ]
 
 
-root : Translations -> Language -> Html Msg
-root translations language =
-    div [ class "header" ]
-        [ div [ class "container" ]
-            [ div [ class "logo-section" ] [ logo, languageButtons language ]
-            , h3 [] [ text translations.header_slogan ]
-            , contactInformation translations
-            , externalLinks translations
-            ]
+root : Translations -> Language -> Route -> Html Msg
+root translations language route =
+    let
+        isCompact : Bool
+        isCompact =
+            if route == Types.Root then
+                False
+            else
+                True
+    in
+    div [ class "header", classList [ ( "compact", isCompact ) ] ]
+        [ div [ class "container", classList [ ( "compact", isCompact ) ] ]
+            ([ div [ class "logo-section", classList [ ( "compact", isCompact ) ] ] [ logo isCompact, languageButtons language ]
+             ]
+                ++ ifThenElse isCompact [] [ h3 [] [ text translations.header_slogan ] ]
+                ++ ifThenElse isCompact [] [ contactInformation translations ]
+                ++ ifThenElse isCompact [] [ externalLinks translations ]
+            )
         ]
+
+
+ifThenElse : Bool -> a -> a -> a
+ifThenElse condition a1 a2 =
+    if condition then
+        a1
+    else
+        a2

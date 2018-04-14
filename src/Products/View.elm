@@ -1,7 +1,8 @@
 module Products.View exposing (root)
 
-import Common.Types.Product exposing (Product)
+import Common.Types.Product exposing (Product, productImageList)
 import Common.Types.Translations exposing (Translations)
+import Dict exposing (Dict)
 import Html exposing (Html, div)
 import Html.Attributes exposing (class, property)
 import Json.Encode
@@ -14,17 +15,21 @@ intro translations =
     div [ class "intro", property "innerHTML" (Json.Encode.string <| translations.body_text) ] []
 
 
-root : Translations -> List Product -> Html Msg
+root : Translations -> Dict Int Product -> Html Msg
 root translations products =
     div
         [ class "container products" ]
         [ intro translations
         , div [ class "grid" ]
             (products
+                |> Dict.toList
                 |> List.foldl
-                    (\product accumulator ->
+                    (\( index, product ) accumulator ->
                         if product.visible then
-                            accumulator ++ List.map (.thumbnail >> (++) "/" >> ProductButton.root product.nameEN) product.images
+                            accumulator
+                                ++ (productImageList product.images
+                                        |> List.map (ProductButton.root index product)
+                                   )
                         else
                             accumulator
                     )

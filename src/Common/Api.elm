@@ -1,23 +1,24 @@
 module Common.Api exposing (..)
 
-import Common.Types.Product as Types
+import Common.Types.Product as Product exposing (Product)
+import Dict exposing (Dict)
 import Http
 import Json.Decode
 import Json.Encode
 import Task exposing (Task)
 
 
-getProducts : Http.Request (List Types.Product)
+getProducts : Http.Request (Dict Int Product)
 getProducts =
-    Http.get "/api/v1/products/" (Json.Decode.list Types.decoder)
+    Http.get "/api/v1/products/" (Json.Decode.list Product.decoder |> Json.Decode.andThen (\b -> Json.Decode.succeed (Dict.fromList (List.map (\a -> ( a.id, a )) b))))
 
 
-getProductsWithGraphQl : Task Http.Error (List Types.Product)
+getProductsWithGraphQl : Task Http.Error (Dict Int Product)
 getProductsWithGraphQl =
     Http.post
         "/graphql"
         (Http.jsonBody graphQlJsonQuery)
-        (Json.Decode.list Types.decoder)
+        (Json.Decode.list Product.decoder |> Json.Decode.andThen (\b -> Json.Decode.succeed (Dict.fromList (List.map (\a -> ( a.id, a )) b))))
         |> Http.toTask
 
 

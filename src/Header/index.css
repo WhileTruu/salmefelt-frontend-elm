@@ -20,6 +20,10 @@
   transform: translate3d(0, 0, 0);
 }
 
+.header.compact::after {
+  background: none;
+}
+
 svg {
   overflow: visible;
   max-width: 100%;
@@ -32,11 +36,25 @@ svg {
   flex-wrap: wrap-reverse;
 }
 
+.logo-section.compact {
+  height: 1.6rem;
+}
+
+.logo-section.compact svg {
+  fill: var(--color-dark);
+  height: 1.6rem;
+  width: 10rem;
+}
+
 .language-buttons {
   display: flex;
   flex: 1;
   justify-content: flex-end;
   margin-bottom: var(--spacing-small);
+}
+
+.logo-section.compact .language-buttons {
+  margin-bottom: 0;
 }
 
 .language-buttons .language-button:not(:last-child) {

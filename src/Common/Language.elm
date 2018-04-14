@@ -1,4 +1,4 @@
-module Common.Language exposing (Language(..), decode, toggle)
+module Common.Language exposing (Language(..), decode, toString, toggle)
 
 import Json.Decode
 
@@ -33,3 +33,13 @@ decode =
                     _ ->
                         Json.Decode.fail ("Unrecognized language " ++ s)
             )
+
+
+toString : Language -> String
+toString language =
+    case language of
+        EN ->
+            "EN"
+
+        ET ->
+            "ET"

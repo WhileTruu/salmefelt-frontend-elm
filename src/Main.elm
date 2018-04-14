@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Html
+import Navigation exposing (Location)
 import State
 import Types exposing (Flags, Model, Msg)
 import View
@@ -8,7 +9,7 @@ import View
 
 main : Program Flags Model Msg
 main =
-    Html.programWithFlags
+    Navigation.programWithFlags Types.OnLocationChange
         { view = View.root
         , init = State.init
         , update = State.update
