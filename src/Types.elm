@@ -1,7 +1,8 @@
 module Types exposing (..)
 
-import Common.Language exposing (Language)
-import Common.Types.Product exposing (Product, ProductImage)
+import Common.Types.Language exposing (Language)
+import Common.Types.Product exposing (Product)
+import Common.Types.Product.Images exposing (ProductImage)
 import Dict exposing (Dict)
 import Http
 import Json.Decode

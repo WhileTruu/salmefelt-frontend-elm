@@ -1,6 +1,6 @@
 module LanguageTest exposing (..)
 
-import Common.Language as Language exposing (Language)
+import Common.Types.Language as Language exposing (Language)
 import Dict exposing (Dict)
 import Expect
 import Http

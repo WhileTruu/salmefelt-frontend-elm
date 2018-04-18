@@ -1,7 +1,7 @@
 module Header.View exposing (..)
 
 import Common.ButtonLink.View as ButtonLink
-import Common.Language as Language exposing (Language)
+import Common.Types.Language as Language exposing (Language)
 import Common.Logo
 import Common.Types.Translations exposing (Translations)
 import Common.Utilities exposing (onClickWithPreventDefault)

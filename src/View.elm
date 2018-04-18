@@ -28,10 +28,10 @@ page : Translations -> Model -> Html Msg
 page translations model =
     case model.route of
         Types.Root ->
-            Products.View.root translations model.products
+            Products.View.root translations model.language model.products
 
         Types.Product id ->
             model.products
                 |> Dict.get id
-                |> Maybe.map (\product -> ProductView.root { index = id, product = product })
+                |> Maybe.map (\product -> ProductView.root { index = id, product = product, language = model.language })
                 |> Maybe.withDefault (text "")

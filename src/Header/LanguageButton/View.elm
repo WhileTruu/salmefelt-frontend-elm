@@ -1,6 +1,6 @@
 module Header.LanguageButton.View exposing (root)
 
-import Common.Language as Language exposing (Language)
+import Common.Types.Language as Language exposing (Language)
 import Html exposing (Html, button, img)
 import Html.Attributes exposing (alt, class, disabled, src)
 import Html.Events exposing (onClick)

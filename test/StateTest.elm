@@ -1,7 +1,7 @@
 module StateTest exposing (..)
 
 import Common.Api as Api
-import Common.Language as Language exposing (Language)
+import Common.Types.Language as Language exposing (Language)
 import Common.Translations exposing (Translations)
 import Dict exposing (Dict)
 import Expect

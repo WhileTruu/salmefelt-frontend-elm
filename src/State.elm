@@ -1,9 +1,10 @@
 module State exposing (init, update)
 
 import Common.Api as Api
-import Common.Language as Language exposing (Language)
+import Common.Types.Language as Language exposing (Language)
 import Common.Ports
-import Common.Types.Product exposing (Product, ProductImage, selectProductImage)
+import Common.Types.Product exposing (Product)
+import Common.Types.Product.Images as ProductImages exposing (ProductImage)
 import Dict exposing (Dict)
 import Http
 import Json.Decode
@@ -72,6 +73,6 @@ replaceActiveProductImageInProducts index productImage products =
             index
             (Maybe.map
                 (\product ->
-                    { product | images = selectProductImage productImage product.images }
+                    { product | images = ProductImages.select productImage product.images }
                 )
             )

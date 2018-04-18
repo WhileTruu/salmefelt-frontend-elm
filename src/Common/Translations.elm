@@ -1,6 +1,6 @@
 module Common.Translations exposing (getTranslationsForLanguage)
 
-import Common.Language as Language exposing (Language)
+import Common.Types.Language as Language exposing (Language)
 import Common.Translations.EN as English
 import Common.Translations.ET as Estonian
 import Common.Types.Translations exposing (Translations)
