@@ -10,7 +10,6 @@ image =
         [ Svg.Attributes.width "406"
         , Svg.Attributes.height "66.858002"
         , Svg.Attributes.viewBox "0 0 107.42083 17.689514"
-        , Svg.Attributes.fill "#ffffff"
         ]
         [ Svg.g [ Svg.Attributes.transform "translate(-39.000599,-218.84836)" ]
             [ Svg.g [ Svg.Attributes.class "sf-logo", Svg.Attributes.transform "matrix(0.26458324,0,0,0.26458324,34.011616,216.85619)" ]

@@ -1,7 +1,7 @@
 .header {
   padding-top: var(--spacing-large);
   padding-bottom: var(--spacing-large);
-  color: white;
+  color: var(--color-dark);
   position: relative;
 }
 
@@ -16,8 +16,11 @@
   background-position: bottom;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  background: radial-gradient(circle at 47% 9%, #3e825f, #1a4172);
   transform: translate3d(0, 0, 0);
+}
+
+.header .sf-logo {
+  fill: var(--color-dark);
 }
 
 .header.compact::after {

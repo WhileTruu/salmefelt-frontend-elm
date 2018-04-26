@@ -1,8 +1,8 @@
 module Header.View exposing (..)
 
 import Common.ButtonLink.View as ButtonLink
-import Common.Types.Language as Language exposing (Language)
 import Common.Logo
+import Common.Types.Language as Language exposing (Language)
 import Common.Types.Translations exposing (Translations)
 import Common.Utilities exposing (onClickWithPreventDefault)
 import Header.LanguageButton.View as LanguageButton
@@ -52,13 +52,13 @@ contactInformation translations =
             [ text translations.contact_name
             , div []
                 [ text <| translations.phone ++ ": "
-                , a [ class "link link--light", href <| "tel:" ++ translations.phonenumber ]
+                , a [ class "link link--dark", href <| "tel:" ++ translations.phonenumber ]
                     [ text translations.phonenumber ]
                 ]
             , div []
                 [ text <| translations.email ++ ": "
                 , a
-                    [ class "link link--light", href <| "mailto:" ++ translations.email_address ]
+                    [ class "link link--dark", href <| "mailto:" ++ translations.email_address ]
                     [ text translations.email_address ]
                 ]
             ]
