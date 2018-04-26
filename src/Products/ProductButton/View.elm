@@ -1,6 +1,5 @@
 module Products.ProductButton.View exposing (root)
 
-import Common.Types.Language as Language exposing (Language)
 import Common.Types.Product exposing (Product)
 import Common.Types.Product.Images exposing (ProductImage)
 import Common.Utilities exposing (onClickWithPreventDefault)
@@ -10,8 +9,8 @@ import Routing
 import Types exposing (Msg(..))
 
 
-root : Language -> Int -> Product -> ProductImage -> Html Msg
-root language index product productImage =
+root : Int -> Product -> ProductImage -> Html Msg
+root index product productImage =
     a
         [ class <| "product-button link link--dark"
         , href <| Routing.productPath index
@@ -20,15 +19,4 @@ root language index product productImage =
         [ div
             [ class "image-container" ]
             [ img [ class "image interactive", src productImage.thumbnail, alt "avatar" ] [] ]
-        , div [ class "product-name" ] [ text <| getName language product ]
         ]
-
-
-getName : Language -> Product -> String
-getName language product =
-    case language of
-        Language.EN ->
-            product.nameEN
-
-        Language.ET ->
-            product.nameET
