@@ -16,4 +16,5 @@ type alias Translations =
     , links_facebook : String
     , links_etsy : String
     , links_instagram : String
+    , page_not_found : String
     }

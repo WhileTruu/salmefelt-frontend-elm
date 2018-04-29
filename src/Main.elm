@@ -10,7 +10,7 @@ import View
 main : Program Flags Model Msg
 main =
     Navigation.programWithFlags Types.OnLocationChange
-        { view = View.root
+        { view = View.view
         , init = State.init
         , update = State.update
         , subscriptions = always Sub.none

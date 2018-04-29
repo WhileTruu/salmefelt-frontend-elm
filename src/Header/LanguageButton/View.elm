@@ -1,4 +1,4 @@
-module Header.LanguageButton.View exposing (root)
+module Header.LanguageButton.View exposing (view)
 
 import Common.Types.Language as Language exposing (Language)
 import Html exposing (Html, button, img)
@@ -6,8 +6,8 @@ import Html.Attributes exposing (alt, class, disabled, src)
 import Html.Events exposing (onClick)
 
 
-root : Language -> Language -> msg -> Html msg
-root buttonLanguage selectedLanguage msg =
+view : Language -> Language -> msg -> Html msg
+view buttonLanguage selectedLanguage msg =
     let
         languageString =
             buttonLanguage |> toString |> String.toLower

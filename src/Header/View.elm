@@ -6,7 +6,7 @@ import Common.Types.Language as Language exposing (Language)
 import Common.Types.Translations exposing (Translations)
 import Common.Utilities exposing (onClickWithPreventDefault)
 import Header.LanguageButton.View as LanguageButton
-import Html exposing (Html, a, button, div, h3, img, span, text)
+import Html exposing (Html, a, button, div, h3, header, img, span, text)
 import Html.Attributes exposing (alt, attribute, class, classList, disabled, href, src)
 import Types exposing (Msg(..), Route)
 
@@ -21,23 +21,23 @@ logo isCompact =
 languageButtons : Language -> Html Msg
 languageButtons language =
     div [ class "language-buttons" ]
-        [ LanguageButton.root Language.EN language ToggleLanguage
-        , LanguageButton.root Language.ET language ToggleLanguage
+        [ LanguageButton.view Language.EN language ToggleLanguage
+        , LanguageButton.view Language.ET language ToggleLanguage
         ]
 
 
 externalLinks : Translations -> Html Msg
 externalLinks translations =
     div [ class "external-links" ]
-        [ ButtonLink.root
+        [ ButtonLink.view
             [ ( "facebook", True ) ]
             translations.links_facebook
             [ img [ alt "links.facebook", src "/assets/images/facebook.svg" ] [] ]
-        , ButtonLink.root
+        , ButtonLink.view
             [ ( "etsy", True ) ]
             translations.links_etsy
             [ img [ alt "links.etsy", src "/assets/images/etsy.svg" ] [] ]
-        , ButtonLink.root
+        , ButtonLink.view
             [ ( "instagram", True ) ]
             translations.links_instagram
             [ img [ alt "link.instagram", src "/assets/images/instagram.svg" ] [] ]
@@ -65,25 +65,17 @@ contactInformation translations =
         ]
 
 
-root : Translations -> Language -> Route -> Html Msg
-root translations language route =
-    let
-        isCompact : Bool
-        isCompact =
-            if route == Types.Root then
-                False
-            else
-                True
-    in
-    div [ class "header", classList [ ( "compact", isCompact ) ] ]
-        [ div [ class "container", classList [ ( "compact", isCompact ) ] ]
-            ([ div [ class "logo-section", classList [ ( "compact", isCompact ) ] ] [ logo isCompact, languageButtons language ]
-             ]
-                ++ ifThenElse isCompact [] [ h3 [] [ text translations.header_slogan ] ]
-                ++ ifThenElse isCompact [] [ contactInformation translations ]
-                ++ ifThenElse isCompact [] [ externalLinks translations ]
-            )
-        ]
+view : Translations -> Language -> Bool -> Html Msg
+view translations language isCompact =
+    header [ class "header container", classList [ ( "compact", isCompact ) ] ]
+        ([ div
+            [ class "logo-section", classList [ ( "compact", isCompact ) ] ]
+            [ logo isCompact, languageButtons language ]
+         ]
+            ++ ifThenElse isCompact [] [ h3 [] [ text translations.header_slogan ] ]
+            ++ ifThenElse isCompact [] [ contactInformation translations ]
+            ++ ifThenElse isCompact [] [ externalLinks translations ]
+        )
 
 
 ifThenElse : Bool -> a -> a -> a

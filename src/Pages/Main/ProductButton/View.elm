@@ -1,4 +1,4 @@
-module Products.ProductButton.View exposing (root)
+module Pages.Main.ProductButton.View exposing (view)
 
 import Common.Types.Product exposing (Product)
 import Common.Types.Product.Images exposing (ProductImage)
@@ -9,8 +9,8 @@ import Routing
 import Types exposing (Msg(..))
 
 
-root : Int -> Product -> ProductImage -> Html Msg
-root index product productImage =
+view : Int -> Product -> ProductImage -> Html Msg
+view index product productImage =
     a
         [ class <| "product-button link link--dark"
         , href <| Routing.productPath index

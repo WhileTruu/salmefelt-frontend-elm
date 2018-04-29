@@ -1,16 +1,19 @@
-module Products.Product.View exposing (root)
+module Pages.Product.View exposing (view)
 
 import Common.Types.Language as Language exposing (Language)
 import Common.Types.Product exposing (Product)
 import Common.Types.Product.Images as ProductImages exposing (ProductImage)
-import Html exposing (Html, button, div, h2, img, span, text)
+import Common.Types.Translations exposing (Translations)
+import Header.View
+import Html exposing (Html, button, div, h2, img, section, span, text)
 import Html.Attributes exposing (alt, class, src)
 import Html.Events exposing (onClick)
 import Types exposing (Msg(..))
 
 
 type alias Properties =
-    { language : Language
+    { translations : Translations
+    , language : Language
     , index : Int
     , product : Product
     }
@@ -51,14 +54,14 @@ description { name, description } =
         ]
 
 
-root : Properties -> Html Msg
-root properties =
-    div [ class "container" ]
-        [ div [ class "product-view" ]
-            [ imageView properties
-            , description (getNameAndDescription properties)
-            ]
+view : Properties -> List (Html Msg)
+view properties =
+    [ Header.View.view properties.translations properties.language True
+    , section [ class "container product-view" ]
+        [ imageView properties
+        , description (getNameAndDescription properties)
         ]
+    ]
 
 
 getNameAndDescription : Properties -> { name : String, description : String }

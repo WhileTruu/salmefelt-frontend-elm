@@ -27,4 +27,5 @@ translations =
     , links_facebook = "https://www.facebook.com/salmefelt"
     , links_etsy = "https://www.etsy.com/shop/salmefelt"
     , links_instagram = "https://www.instagram.com/salmefelt"
+    , page_not_found = "This page does not exist. 😞"
     }

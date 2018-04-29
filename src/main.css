@@ -3,9 +3,9 @@
 @import './Common/ButtonLink/index.css';
 @import './Header/LanguageButton/index.css';
 @import './Header/index.css';
-@import './Products/index.css';
-@import './Products/ProductButton/index.css';
-@import './Products/Product/index.css';
+@import './Pages/Main/index.css';
+@import './Pages/Main/ProductButton/index.css';
+@import './Page/Product/index.css';
 
 :root {
   --spacing-small: 0.8rem;

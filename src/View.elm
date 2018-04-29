@@ -1,37 +1,37 @@
-module View exposing (root)
+module View exposing (view)
 
 import Common.Translations as Translations
 import Common.Types.Translations exposing (Translations)
 import Dict
-import Header.View
 import Html exposing (Html, button, div, h1, img, text)
 import Html.Attributes exposing (class)
-import Products.Product.View as ProductView
-import Products.View
+import Pages.Main.View as MainPage
+import Pages.NotFound.View as NotFoundPage
+import Pages.Product.View as ProductPage
 import Types exposing (..)
 
 
-root : Model -> Html Msg
-root model =
-    let
-        translations : Translations
-        translations =
-            Translations.getTranslationsForLanguage model.language
-    in
+view : Model -> Html Msg
+view model =
     div [ class "app" ]
-        [ Header.View.root translations model.language model.route
-        , page translations model
-        ]
+        (page
+            (Translations.getTranslationsForLanguage model.language)
+            model
+        )
 
 
-page : Translations -> Model -> Html Msg
+page : Translations -> Model -> List (Html Msg)
 page translations model =
     case model.route of
         Types.Root ->
-            Products.View.root translations model.language model.products
+            MainPage.view translations model.language model.products
 
         Types.Product id ->
             model.products
                 |> Dict.get id
-                |> Maybe.map (\product -> ProductView.root { index = id, product = product, language = model.language })
-                |> Maybe.withDefault (text "")
+                |> Maybe.map
+                    (\product ->
+                        ProductPage.view
+                            { translations = translations, index = id, product = product, language = model.language }
+                    )
+                |> Maybe.withDefault (NotFoundPage.view translations)
