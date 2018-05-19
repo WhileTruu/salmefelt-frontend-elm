@@ -2,16 +2,23 @@
 
 button.button,
 a.button {
+  position: relative;
   display: inline-block;
   user-select: none;
   border-radius: var(--button-border-radius);
   border: var(--button-border);
   font-size: 1.125rem;
-  overflow: hidden;
   padding: 0;
+  cursor: pointer;
+  box-shadow: var(--default-shadow);
+  transition: transform 0.2s ease-in-out;
 }
 
-button > img {
+button.button:not(.small) > img {
+  border-radius: var(--button-border-radius);
+}
+
+button.button > img {
   height: 100%;
 }
 
@@ -38,13 +45,6 @@ button.button.selected:not(.small) {
   box-shadow: var(--selected-shadow);
 }
 
-button.button,
-a.button {
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  box-shadow: var(--default-shadow);
-}
-
 button.button:focus,
 a.button:focus {
   outline: 0;
@@ -53,14 +53,31 @@ a.button:focus {
 
 button.button:hover:not(.selected),
 a.button:hover:not(.selected) {
-  box-shadow: var(--hover-shadow);
   transform: var(--hover-tranform);
 }
 
 button.button:active:not(.selected),
 a.button:active:not(.selected) {
   transform: var(--active-transform);
-  box-shadow: var(--active-shadow);
+}
+
+button.button::after,
+a.button::after {
+  content: '';
+  border-radius: var(--button-border-radius);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: var(--hover-shadow);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+button.button:hover:not(.selected)::after,
+a.button:hover:not(.selected)::after {
+  opacity: 1;
 }
 
 /* Button-like links */
