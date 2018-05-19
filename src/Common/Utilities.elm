@@ -1,4 +1,4 @@
-module Common.Utilities exposing (onClickWithPreventDefault)
+module Common.Utilities exposing (ifThenElse, onClickWithPreventDefault)
 
 import Html
 import Html.Events
@@ -15,3 +15,11 @@ onClickWithPreventDefault message =
             }
     in
     Html.Events.onWithOptions "click" options (Json.Decode.succeed message)
+
+
+ifThenElse : Bool -> a -> a -> a
+ifThenElse condition a1 a2 =
+    if condition then
+        a1
+    else
+        a2

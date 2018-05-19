@@ -1,11 +1,10 @@
 module Header.View exposing (..)
 
-import Common.ButtonLink.View as ButtonLink
+import Common.Button.View as Button
 import Common.Logo
 import Common.Types.Language as Language exposing (Language)
 import Common.Types.Translations exposing (Translations)
-import Common.Utilities exposing (onClickWithPreventDefault)
-import Header.LanguageButton.View as LanguageButton
+import Common.Utilities exposing (ifThenElse, onClickWithPreventDefault)
 import Html exposing (Html, a, button, div, h3, header, img, span, text)
 import Html.Attributes exposing (alt, attribute, class, classList, disabled, href, src)
 import Types exposing (Msg(..), Route)
@@ -18,28 +17,38 @@ logo isCompact =
         [ Common.Logo.image ]
 
 
+languageButton : Language -> Language -> msg -> Html msg
+languageButton buttonLanguage selectedLanguage msg =
+    let
+        languageString =
+            buttonLanguage |> toString |> String.toLower
+    in
+    Button.small
+        msg
+        (buttonLanguage == selectedLanguage)
+        [ img [ alt <| languageString ++ " flag", src <| "/assets/images/" ++ languageString ++ ".svg" ] [] ]
+
+
 languageButtons : Language -> Html Msg
 languageButtons language =
     div [ class "language-buttons" ]
-        [ LanguageButton.view Language.EN language ToggleLanguage
-        , LanguageButton.view Language.ET language ToggleLanguage
-        ]
+        [ languageButton Language.EN language ToggleLanguage, languageButton Language.ET language ToggleLanguage ]
 
 
 externalLinks : Translations -> Html Msg
-externalLinks translations =
+externalLinks { links_facebook, links_etsy, links_instagram } =
     div [ class "external-links" ]
-        [ ButtonLink.view
-            [ ( "facebook", True ) ]
-            translations.links_facebook
+        [ Button.link
+            [ "facebook" ]
+            links_facebook
             [ img [ alt "links.facebook", src "/assets/images/facebook.svg" ] [] ]
-        , ButtonLink.view
-            [ ( "etsy", True ) ]
-            translations.links_etsy
+        , Button.link
+            [ "etsy" ]
+            links_etsy
             [ img [ alt "links.etsy", src "/assets/images/etsy.svg" ] [] ]
-        , ButtonLink.view
-            [ ( "instagram", True ) ]
-            translations.links_instagram
+        , Button.link
+            [ "instagram" ]
+            links_instagram
             [ img [ alt "link.instagram", src "/assets/images/instagram.svg" ] [] ]
         ]
 
@@ -76,11 +85,3 @@ view translations language isCompact =
             ++ ifThenElse isCompact [] [ contactInformation translations ]
             ++ ifThenElse isCompact [] [ externalLinks translations ]
         )
-
-
-ifThenElse : Bool -> a -> a -> a
-ifThenElse condition a1 a2 =
-    if condition then
-        a1
-    else
-        a2

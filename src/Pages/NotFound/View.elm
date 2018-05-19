@@ -1,7 +1,6 @@
 module Pages.NotFound.View exposing (view)
 
 import Common.Types.Translations exposing (Translations)
-import Header.View
 import Html exposing (Html, h1, p, section, text)
 import Html.Attributes exposing (class)
 import Types exposing (Msg)

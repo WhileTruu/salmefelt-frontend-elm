@@ -11,10 +11,6 @@
   margin: var(--spacing-small) 0 var(--spacing-small);
 }
 
-.section .buttons button {
-  padding: 0;
-}
-
 .section .buttons button:not(:last-of-type) {
   margin-right: var(--spacing-small);
 }

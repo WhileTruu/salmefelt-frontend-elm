@@ -1,13 +1,13 @@
 module Pages.Product.View exposing (view)
 
+import Common.Button.View as Button
 import Common.Types.Language as Language exposing (Language)
 import Common.Types.Product exposing (Product)
 import Common.Types.Product.Images as ProductImages exposing (ProductImage)
 import Common.Types.Translations exposing (Translations)
 import Header.View
 import Html exposing (Html, button, div, h2, img, section, span, text)
-import Html.Attributes exposing (alt, class, src)
-import Html.Events exposing (onClick)
+import Html.Attributes exposing (alt, class, classList, src)
 import Types exposing (Msg(..))
 
 
@@ -19,48 +19,32 @@ type alias Properties =
     }
 
 
-smallThumbnail : Int -> Bool -> ProductImage -> Html Msg
-smallThumbnail index selected productImage =
-    button [ class "button interactive", onClick <| SelectProductImage index productImage ]
-        [ img [ class "", src <| "/" ++ productImage.thumbnail, alt "avatar" ] [] ]
+productImageButton : Int -> Product -> ProductImage -> Html Msg
+productImageButton index product image =
+    Button.default
+        (SelectProductImage index image)
+        (image == ProductImages.selected product.images)
+        [ img [ src <| "/" ++ image.thumbnail, alt <| "button-image-" ++ toString image.id ] [] ]
 
 
 imageView : Properties -> Html Msg
 imageView { index, product } =
     div [ class "section" ]
-        [ div [ class "buttons" ]
-            (ProductImages.list product.images
-                |> List.map
-                    (\image ->
-                        if image == ProductImages.selected product.images then
-                            smallThumbnail index True image
-                        else
-                            smallThumbnail index False image
-                    )
-            )
-        , img
-            [ src <| "/" ++ (product.images |> (ProductImages.selected >> .optimized))
-            , alt product.nameEN
-            ]
-            []
+        [ div [ class "buttons" ] (ProductImages.list product.images |> List.map (productImageButton index product))
+        , img [ src <| "/" ++ (product.images |> (ProductImages.selected >> .optimized)), alt product.nameEN ] []
         ]
 
 
 description : { name : String, description : String } -> Html Msg
 description { name, description } =
-    div [ class "section" ]
-        [ h2 [] [ text name ]
-        , text description
-        ]
+    div [ class "section" ] [ h2 [] [ text name ], text description ]
 
 
 view : Properties -> List (Html Msg)
 view properties =
     [ Header.View.view properties.translations properties.language True
     , section [ class "container product-view" ]
-        [ imageView properties
-        , description (getNameAndDescription properties)
-        ]
+        [ imageView properties, description (getNameAndDescription properties) ]
     ]
 
 

@@ -1,6 +1,5 @@
 module Main exposing (..)
 
-import Html
 import Navigation exposing (Location)
 import State
 import Types exposing (Flags, Model, Msg)

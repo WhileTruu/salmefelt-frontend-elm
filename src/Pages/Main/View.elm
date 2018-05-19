@@ -1,16 +1,17 @@
 module Pages.Main.View exposing (view)
 
+import Common.Button.View as Button
 import Common.Types.Language as Language exposing (Language)
 import Common.Types.Product exposing (Product)
 import Common.Types.Product.Images as ProductImages exposing (ProductImage)
 import Common.Types.Translations exposing (Translations)
 import Dict exposing (Dict)
 import Header.View
-import Html exposing (Html, div, h2, p, section, text)
-import Html.Attributes exposing (class, property)
+import Html exposing (Html, div, h2, img, p, section, text)
+import Html.Attributes exposing (alt, class, property, src)
 import Json.Encode
-import Pages.Main.ProductButton.View as ProductButton
-import Types exposing (Msg)
+import Routing
+import Types exposing (Msg(..))
 
 
 intro : Translations -> Html Msg
@@ -28,13 +29,24 @@ getName language product =
             product.nameET
 
 
+productButton : Int -> Product -> ProductImage -> Html Msg
+productButton index product productImage =
+    Button.maxSize
+        (GoToProductPage (Routing.productPath product.id) index productImage)
+        False
+        [ div
+            [ class "square-image-container" ]
+            [ img [ src productImage.thumbnail, alt "avatar" ] [] ]
+        ]
+
+
 productList : Language -> Int -> Product -> Html Msg
 productList language index product =
     div [ class "product" ]
         [ h2 [] [ text <| getName language product ]
         , div [ class "grid" ]
             (ProductImages.list product.images
-                |> List.map (ProductButton.view index product)
+                |> List.map (productButton index product)
             )
         ]
 

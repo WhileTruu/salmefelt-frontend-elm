@@ -56,12 +56,12 @@ svg {
   margin-bottom: var(--spacing-small);
 }
 
-.logo-section.compact .language-buttons {
-  margin-bottom: 0;
+.language-buttons > *:not(:last-child) {
+  margin-right: var(--spacing-small);
 }
 
-.language-buttons .language-button:not(:last-child) {
-  margin-right: var(--spacing-small);
+.logo-section.compact .language-buttons {
+  margin-bottom: 0;
 }
 
 .external-links .button:not(:last-child) {
