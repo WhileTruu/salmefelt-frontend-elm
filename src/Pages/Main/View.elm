@@ -36,7 +36,7 @@ productButton index product productImage =
         False
         [ div
             [ class "square-image-container" ]
-            [ img [ src productImage.thumbnail, alt "avatar" ] [] ]
+            [ img [ src productImage.thumbnail, alt <| product.nameEN ++ " " ++ toString productImage.id ] [] ]
         ]
 
 
